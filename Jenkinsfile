@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    stages {
+        stage('SCM') {
+            steps {
+                git 'https://github.com/aminansari45/tekno.git'
+            }
+        }
+        stage('Compile') {
+            steps {
+                sh 'sudo apt-get install apache2 php php-mysql php-fpm -y'
+                sh 'sudo cp info.php /var/www/html'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'sudo systemctl restart apache2'
+            }
+        }
+    }
+}
